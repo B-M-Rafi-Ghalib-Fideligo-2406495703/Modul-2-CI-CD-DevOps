@@ -16,17 +16,13 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
+    // WEB ENDPOINTS
+
     @GetMapping("/create")
     public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
         return "createProduct";
-    }
-
-    @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
-        service.create(product);
-        return "redirect:list";
     }
 
     @GetMapping("/list")
@@ -43,9 +39,24 @@ public class ProductController {
         return "editProduct";
     }
 
-    @PostMapping("/edit")
-    public String editProductPost(@ModelAttribute Product product, Model model) {
-        service.update(product);
+    // API ENDPOINTS
+
+    @PostMapping("/create")
+    public String createProductPost(@ModelAttribute Product product, Model model) {
+        service.create(product);
         return "redirect:list";
+    }
+
+    @PostMapping("/{productId}/edit")
+    public String editProductPost(@ModelAttribute Product product, Model model, @PathVariable String productId) {
+        product.setProductId(productId);
+        service.update(product);
+        return "redirect:../list";
+    }
+
+    @GetMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable String productId, Model model) {
+        service.delete(productId);
+        return "redirect:../list";
     }
 }
