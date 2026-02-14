@@ -1,6 +1,7 @@
 plugins {
     java
     jacoco
+    id("org.sonarqube") version "7.1.0.6387"
     id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -76,4 +77,11 @@ tasks.jacocoTestReport {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "B-M-Rafi-Ghalib-Fideligo-2406495703_Modul-1-Coding-Standards")
+        property("sonar.organization", "b-m-rafi-ghalib-fideligo-2406495703")
+    }
 }
