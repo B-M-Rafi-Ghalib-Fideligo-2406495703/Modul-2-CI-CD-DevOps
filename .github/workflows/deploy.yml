@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # Biar bisa di-klik manual kalau mau deploy ulang
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -13,16 +13,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to Koyeb
+      # --- PERBAIKAN: Gunakan nama action yang benar ---
+      - name: Install and configure the Koyeb CLI
+        uses: koyeb-community/koyeb-actions@v2
+        with:
+          api_token: "${{ secrets.KOYEB_API_TOKEN }}"
+
+      # --- DEPLOYMENT ---
+      - name: Build and deploy the application to Koyeb
         uses: koyeb/action-git-deploy@v1
         with:
-          action: deploy
-          token: ${{ secrets.KOYEB_API_TOKEN }}
           app-name: eshop-adpro-fideligo
           service-name: eshop-service
-          builder: buildpack # Koyeb akan mendeteksi ini Java Spring Boot
-          env:
-            SERVER_PORT: 8080 # Spring Boot default port
-          ports: 8080:http # Mapping port 8080 ke HTTP
-          route: /:8080
-          skip-cache: true
+          git-builder: buildpack
+          service-env: SERVER_PORT=8080
+          service-ports: "8080:http"
+          service-routes: "/:8080"
