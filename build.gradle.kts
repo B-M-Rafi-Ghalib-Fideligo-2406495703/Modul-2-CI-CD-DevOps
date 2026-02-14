@@ -61,13 +61,13 @@ tasks.register<Test>("functionalTest") {
     filter {
         includeTestsMatching("*FunctionalTest")
     }
-    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.test {
     filter {
         excludeTestsMatching("*FunctionalTest")
     }
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
