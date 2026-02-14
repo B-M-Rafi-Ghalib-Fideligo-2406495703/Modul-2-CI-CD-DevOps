@@ -8,6 +8,7 @@ class EshopApplicationTests {
 
     @Test
     void contextLoads() {
+        // this method is blank on purpose, just to make sure springboot runs without any errors
     }
 
 }
