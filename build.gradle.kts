@@ -81,7 +81,7 @@ tasks.withType<Test>().configureEach {
 
 sonar {
     properties {
-        property("sonar.projectKey", "B-M-Rafi-Ghalib-Fideligo-2406495703_Modul-1-Coding-Standards")
+        property("sonar.projectKey", "B-M-Rafi-Ghalib-Fideligo-2406495703_Modul-2-CI-CD-DevOps")
         property("sonar.organization", "b-m-rafi-ghalib-fideligo-2406495703")
     }
 }
